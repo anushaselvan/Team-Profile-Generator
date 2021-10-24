@@ -1,0 +1,26 @@
+{
+  "name": "team-profile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "Jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anushaselvan/Team-Profile-Generator.git"
+  },
+  "author": "Anusha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anushaselvan/Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/anushaselvan/Team-Profile-Generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  }
+}
