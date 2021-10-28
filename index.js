@@ -1,68 +1,87 @@
 const inquirer = require("inquirer");
+const fs = require("fs");
 const engineer = require("./lib/Engineer");
 const intern = require("./lib/Intern");
 const manager = require("./lib/Manager");
 const Employee = require("./lib/Employee");
+const { format } = require("path");
+const teamProfArray = [];
 
-function getManagerName(){
+const getManagerDetails = () => {
 
     return inquirer.prompt([{
         type: "input",
         name: "name",
         message: "Enter Team Manager's name:",  
-    }])
-    
-    .then(val =>{
-        const managerName = val.name;
-         if(typeof managerName === 'string' && managerName.trim().length) {
-            this.getManagerId();
+        validate: nameInput =>{
+         if(typeof nameInput === 'string' && nameInput.trim().length) {
+             return true;
          }
          else{
           console.log("Expected parameter 'name' to be a non-empty string"); 
-      }
-    }); 
-   }
-  
-  
-  function getManagerId() {
-  return inquirer.prompt([{
+      }}
+  },
+    {
       type: "input",
       name: "id",
       message: "Enter Team Manager's ID:",
-  
-  }])
-  .then(val => {
-      const managerId = val.id;
-       if( managerId > 0) {
-          this.getManagerEmail();
+      validate: idInput =>{
+       if( idInput > 0) {
+          return true;
        }
        else{
         console.log("Expected parameter 'id' to be a non-negative number"); 
     }
-  }); 
   }
-  
-  function getManagerEmail() {
-  return inquirer.prompt([{
+  },
+  {
       type: "input",
       name: "email",
-      message: "Enter Team Manager's email: "
-  }])
-  .then(val => {
-      const managerEmail = val.email;
+      message: "Enter Team Manager's email: ",
+      validate: emailInput => {
+          //format = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailInput)
   
-       if( managerEmail.trim().length) {
-          this.getRole();
-       }
+       if(emailInput) {
+         return true;
+         }
        else{
-        console.log("Enter email address in the correct format!"); 
+        console.log("Reenter email address in the correct format!"); 
     }
-  }); 
   }
-  
- function  getRole(){
-      return 'Employee';
+  },
+  {
+    type: "input",
+    name: "officenumber",
+    message: "Enter Team Manager's office number:",
+    validate: officeNumber => {
+     if( officeNumber > 0) {
+        return true;
+     }
+     else{
+      console.log("Expected parameter offer number to be a non-negative number"); 
   }
+}
+}
+    ])
+    .then(managerPromptValues => {
+        const { name, id, email, officenumber} = managerPromptValues;
+        const manager = new Manager(name, id, email, officenumber);
 
-const team = new Employee();
+        teamProfArray.push(Manager);
+        console.log(manager);
+    })
+};
+ 
+function init(){
+getManagerDetails()
+addEmployee()
+.then(teamProfArray => {
+    const HTMLContent = generateHTML(teamProfArray);
+    fs.writeFile("./dist/index.html", HTMLContent, (err) =>
+    err ? console.log(err) : console.log("Successfully created HTML page!")
+     );
+});
 
+}
+
+init();
