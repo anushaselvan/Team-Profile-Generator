@@ -47,7 +47,33 @@ function addIntern(intern){
 </div>`;
 }
 
-function generateHTML(employeeCards){
+function generateHtmlPage(data){
+   cardArray = [];
+  for(const employee of data){
+    const role = employee.getrole();
+
+   if(role === 'Manager');
+   {
+       const managerCard = addManager(employee);
+       cardArray.push(managerCard);
+   }
+   if(role === 'Engineer');
+   {
+       const engineerCard = addEngineer(employee);
+       cardArray.push(engineerCard);
+   }
+   if(role === 'Intern');
+   {
+       const internCard = addIntern(employee);
+       cardArray.push(internCard);
+   }
+   const employeecardArray = cardArray.join('');
+   generateHTML(employeecardArray);
+}
+}
+
+
+function generateHTML(employeeCardArray){
     return `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -64,7 +90,7 @@ function generateHTML(employeeCards){
     <div class="container w-80% ">
         <section class="row justify-content-center">
      
-        ${employeeCards}
+        ${employeeCardArray}
        
         </section>
         </div>
@@ -75,5 +101,4 @@ function generateHTML(employeeCards){
 }
 
 
-module.exports = generateHTML;
-
+module.exports = generateHtmlPage;
