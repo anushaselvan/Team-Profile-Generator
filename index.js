@@ -2,8 +2,9 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const engineer = require("./lib/Engineer");
 const intern = require("./lib/Intern");
-const manager = require("./lib/Manager");
+const Manager = require("./lib/Manager");
 const Employee = require("./lib/Employee");
+const generateHTML = require("./src/teamGenerate");
 const { format } = require("path");
 const teamProfArray = [];
 
@@ -67,16 +68,16 @@ const getManagerDetails = () => {
         const { name, id, email, officenumber} = managerPromptValues;
         const manager = new Manager(name, id, email, officenumber);
 
-        teamProfArray.push(Manager);
+        teamProfArray.push(manager);
         console.log(manager);
     })
 };
  
 function init(){
 getManagerDetails()
-addEmployee()
-.then(teamProfArray => {
-    const HTMLContent = generateHTML(teamProfArray);
+//addEmployee()
+.then(manager => {
+    const HTMLContent = generateHTML(manager);
     fs.writeFile("./dist/index.html", HTMLContent, (err) =>
     err ? console.log(err) : console.log("Successfully created HTML page!")
      );
