@@ -5,7 +5,8 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const Employee = require("./lib/Employee");
-const generateHtmlPage = require("./src/teamGenerate");
+const generateHtmlPage = require("./src/generateHtmlPage");
+
 
 const teamMemberArray = [];
 // Getting manager details and adding it to teamMemberArray
@@ -54,23 +55,22 @@ const getManagerDetails = () => {
     type: "input",
     name: "officenumber",
     message: "Enter Team Manager's office number:",
-    validate: officeNumber => {
+    /*validate: officeNumber => {
      if( officeNumber > 0) {
         return true;
      }
      else{
       console.log("Expected parameter offer number to be a non-negative number"); 
   }
-}
+}*/
 }
     ])
     .then(managerPromptValues => {
         const { name, id, email, officenumber} = managerPromptValues;
         const manager = new Manager(name, id, email, officenumber);
-
+console.log(manager);
         teamMemberArray.push(manager);
-        console.log(manager);
-        addOptions();
+       addOptions();
     })
 };
 // Getting engineer details and adding it to teamMemberArray
@@ -134,7 +134,6 @@ const getEngineerDetails = () => {
       const engineer = new Engineer(name, id, email, github);
 
       teamMemberArray.push(engineer);
-      console.log(engineer);
       addOptions();
   })
 };
@@ -184,14 +183,7 @@ const getInternDetails = () => {
   type: "input",
   name: "school",
   message: "Enter Intern's school name:",
-  validate: school => {
-   if(school) {
-      return true;
-   }
-   else{
-    return false; 
-}
-}
+
 }
   ])
   .then(internPromptValues => {
@@ -199,7 +191,6 @@ const getInternDetails = () => {
       const intern = new Intern(name, id, email, school);
 
       teamMemberArray.push(intern);
-      console.log(intern);
       addOptions();
   })
 };
@@ -208,29 +199,32 @@ const getInternDetails = () => {
       type: "list",
       name: "option",
       message: "What type of employee would you like to add to your team?",
-      choices: ['Engineer', 'intern', 'I do not want to add more employees'],
-    validate: answer =>{
-      if(answer === 'Engineer'){
-        getEngineerDetails()
+      choices: ["Engineer", "Intern", "I do not want to add more employees"]
+    }])
+    .then((answer) => {
+      var answer = answer.option;
+      if(answer === "Engineer"){
+         getEngineerDetails(); 
       }
-      else  if(answer === 'Intern'){
-        getInternDetails()
+      else if(answer === "Intern"){
+        getInternDetails();
+
       }
-      else if(answer === 'I do not want to add more employees'){
-        return;
+      else {
+        console.log(teamMemberArray);
+       /* const HTMLContent = generateHtmlPage(teamMemberArray);
+        console.log(HTMLContent);
+        fs.writeFileMd("./dist/index.html", JSON.stringify(HTMLContent), (err) =>
+        err ? console.log(err) : console.log("Successfully created HTML page!"));*/
+        
+        fs.writeFile("./dist/index.html", generateHtmlPage(teamMemberArray), (err) =>
+        err ? console.log(err) : console.log("Successfully created HTML page!"));
       }
-    }
-  }]);
+    });    
+};
+
+const init = () => {
+  getManagerDetails()
   };
- 
-function init(){
-getManagerDetails()
-.then((teamMemberArray) => {
-    const HTMLContent = generateHtmlPage(teamMemberArray);
-    fs.writeFile("./dist/index.html", HTMLContent, (err) =>
-    err ? console.log(err) : console.log("Successfully created HTML page!")
-     );
-});
-}
 
 init();
