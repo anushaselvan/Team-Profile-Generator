@@ -22,6 +22,6 @@
   "homepage": "https://github.com/anushaselvan/Team-Profile-Generator#readme",
   "dependencies": {
     "inquirer": "^8.2.0",
-    "util": "^0.12.4"
+    "jest": "^27.3.1"
   }
 }
