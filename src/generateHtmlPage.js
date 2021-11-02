@@ -2,7 +2,7 @@ function addManager(manager){
   return `
 <div class= "col-4 mb-3">
 <div class="card shadow-lg rounded" style="width: 18rem">
-<div class="card-title bg-info ">
+<div class="card-title bg-info text-center ">
     <h3>${manager.name}</h3>
     <h5 class="sub-title"><img src="./assets/Coffee.png" alt="Coffee"/> Manager</h5>
 </div>
@@ -19,7 +19,7 @@ function addEngineer(engineer){
   return `
 <div class= "col-4 mb-3">
 <div class="card shadow-lg rounded " style="width: 18rem">
-<div class="card-title bg-info  ">
+<div class="card-title bg-info text-center  ">
     <h3>${engineer.name}</h3>
     <h5 class="sub-title"><img src="./assets/Glasses.png" alt="Glasses"/> Engineer</h5>
 </div>
@@ -36,7 +36,7 @@ function addIntern(intern){
   return `
   <div class= "col-4 mb-3">
   <div class="card shadow-lg rounded " style="width: 18rem">
-  <div class="card-title bg-info  ">
+  <div class="card-title bg-info text-center  ">
       <h3>${intern.name}</h3>
       <h5 class="sub-title"><img src="./assets/Intern.png" alt="Intern"/> Intern</h5>
   </div>
