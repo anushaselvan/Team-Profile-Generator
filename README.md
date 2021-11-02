@@ -21,6 +21,7 @@
  - Run the application using - node index.js and follow the prompts. 
  - Check out this [video](https://watch.screencastify.com/v/jjaDI42SVFovg0kw6yrA) for more details. 
  - This is the sample output - 
+![TeamPhoto](https://user-images.githubusercontent.com/84444052/139773838-7bdbe83c-17fc-4fd7-a254-fe25f865fdf2.png)
 
 ## Contribution
   Submit a Pull Request to collaborate!
